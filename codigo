@@ -1,0 +1,104 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Catálogo de Películas'),
+        ),
+        body: MovieCatalog(),
+      ),
+    );
+  }
+}
+
+class MovieCatalog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        MovieCard(
+          title: 'El Gran Cine',
+          rating: 4.5,
+          description: 'Una película emocionante sobre...',
+          director: 'Director Genial',
+          imageUrl: 'https://example.com/pelicula1.jpg',
+        ),
+        MovieCard(
+          title: 'Aventuras en la Selva',
+          rating: 3.8,
+          description: 'Explora la selva con...',
+          director: 'Directora Increíble',
+          imageUrl: 'https://example.com/pelicula2.jpg',
+        ),
+        // Agrega más películas aquí
+      ],
+    );
+  }
+}
+
+class MovieCard extends StatelessWidget {
+  final String title;
+  final double rating;
+  final String description;
+  final String director;
+  final String imageUrl;
+
+  MovieCard({
+    required this.title,
+    required this.rating,
+    required this.description,
+    required this.director,
+    required this.imageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Image.network(imageUrl),
+              Positioned(
+                bottom: 10,
+                left: 10,
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.yellow),
+                    Text('Calificación: $rating'),
+                  ],
+                ),
+                Text(description),
+                Text('Director: $director'),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
